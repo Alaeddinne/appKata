@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-3" role="navigation" aria-label="Main navigation">
+    <div class="container">
+        <a class="navbar-brand" href="/" aria-label="App Kata home">App Kata</a>
+        <div class="d-flex">
+            @if (page === Page.PANIER) {
+            <button class="btn btn-primary rounded-pill shadow px-3 py-2 d-flex align-items-center gap-2" type="button"
+                routerLink="/panier" aria-label="Voir le panier">
+                <span class="bg-primary bg-opacity-25 rounded-circle d-flex align-items-center justify-content-center"
+                    style="width: 32px; height: 32px;" aria-hidden="true">
+                    <i class="fas fa-shopping-cart"></i>
+                </span>
+                <span class="fw-semibold">Panier</span>
+                @if ((panierService.panierItemCount$ | async) ?? 0) {
+                <span
+                    class="ms-1 d-inline-flex align-items-center justify-content-center rounded-circle bg-danger text-white"
+                    style="width: 20px; height: 20px; font-size: 0.75rem;" 
+                    aria-live="polite" aria-atomic="true">
+                    {{ panierService.panierItemCount$ | async }}
+                </span>
+                }
+            </button>
+
+            }@else {
+            <button class="btn btn-primary rounded-pill shadow px-3 py-2 d-flex align-items-center gap-2" type="button"
+                routerLink="/articles" aria-label="Retour à l'accueil">
+                <span class="bg-primary bg-opacity-25 rounded-circle d-flex align-items-center justify-content-center"
+                    style="width: 32px; height: 32px;" aria-hidden="true">
+                    <i class="fas fa-store"></i>
+                </span>
+                <span class="fw-semibold">Accueil</span>
+            </button>
+            }
+        </div>
+    </div>
+</nav>

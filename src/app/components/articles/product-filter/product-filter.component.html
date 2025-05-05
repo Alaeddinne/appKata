@@ -1,0 +1,13 @@
+<div class="filter-container" role="search">
+    <div class="mb-3 col-sm-12 col-md-4 pe-2">
+        <label for="categorySelect" class="form-label">Filtrer par catégorie</label>
+        <select id="categorySelect" class="form-select" [(ngModel)]="selectedCategory"
+            (ngModelChange)="onCategoryChange($event)"
+            aria-label="Filtrer les produits par catégorie">
+            <option [ngValue]="Category.ALL">Toutes les catégories</option>
+            @for (category of categories; track $index) {
+            <option [ngValue]="category">{{ category }}</option>
+            }
+        </select>
+    </div>
+</div>

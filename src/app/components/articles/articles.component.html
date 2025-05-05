@@ -1,0 +1,16 @@
+@let dataProduct = productsList$ | async;
+
+<app-menu [page]="Page.PANIER"></app-menu>
+
+@if (dataProduct) {
+<main class="container" role="main">
+    <h1 class="visually-hidden">Catalogue de produits</h1>
+    <app-product-filter [categories]="categories" (filterChange)="onCategoryChange($event)"></app-product-filter>
+    <div class="row g-3 align-items-stretch mb-5" role="list" aria-label="Liste des produits">
+        @for (product of (filteredProducts | async); track $index) {
+        <app-product-card [dataProduct]="product" class="col-md-4 col-sm-12"
+            (addToPanierEvent)="addToPanier($event)" role="listitem"></app-product-card>
+        }
+    </div>
+</main>
+}
