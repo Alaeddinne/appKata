@@ -1,0 +1,51 @@
+@if (dataCartItem) {
+<div class="panier-items" role="listitem" aria-label="Product in cart">
+    <div class="card item shadow-sm">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start">
+                <div class="item-details">
+                    <div class="d-flex flex-row justify-content-between ">
+                        <h3 class="card-title fw-bold text-primary mb-3">{{ dataCartItem.product.productName }}</h3>
+                        <div class="item-actions ms-3">
+                            <button class="btn btn-danger rounded-circle shadow-sm remove-btn"
+                                (click)="removeItem(dataCartItem.product.id)" aria-label="Supprimer du panier">
+                                <i class="fas fa-trash" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="item-info-container">
+                        <div class="row g-2">
+                            <div class="col-md-6">
+                                <div class="info-card bg-light p-2 rounded">
+                                    <span class="info-label">Quantité:</span>
+                                    <span class="info-value badge bg-primary rounded-pill">{{ dataCartItem.quantity
+                                        }}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info-card bg-light p-2 rounded">
+                                    <span class="info-label">Taxes:</span>
+                                    <span class="info-value">{{ dataCartItem.product.tax |currency :"EUR"}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info-card bg-light p-2 rounded">
+                                    <span class="info-label">Prix unitaire HT:</span>
+                                    <span class="info-value">{{ dataCartItem.product.price |currency :"EUR" }}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info-card bg-light p-2 rounded">
+                                    <span class="info-label">Prix unitaire TTC:</span>
+                                    <span class="info-value fw-bold">{{ dataCartItem.product.priceWithTaxes|currency
+                                        :"EUR"}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}

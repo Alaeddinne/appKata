@@ -1,0 +1,32 @@
+@if (dataProduct) {
+<div class="card h-100" role="region" aria-label="Product information">
+    <div class="card-header text-center" role="heading" aria-level="2">
+        {{dataProduct.productName}}
+    </div>
+    <div class="card-body text-center">
+        <p>Categorie: <span>{{dataProduct.category}}</span></p>
+        <p>Prix: <span>{{dataProduct.priceWithTaxes | currency:'EUR' }}</span></p>
+        @let quantity = dataProduct.quantity - quantityToAdd ;
+        <p>En stock: <span>{{ quantity > 0 ? quantity : 0 }}</span></p>
+    </div>
+
+
+    <div class="card-footer d-flex flex-row gap-2 justify-content-center">
+        <div class="input-group justify-content-center" role="group" aria-label="Product quantity selection">
+            @if (dataProduct.quantity > 0) { <span class="input-group-text"
+                id="quantity-label-{{dataProduct.id}}">Qte:</span>
+            <input id="quantityInput-{{dataProduct.id}}" type="number" class="form-control text-center" min="1"
+                [max]="dataProduct.quantity" [(ngModel)]="quantityToAdd" style="max-width: 70px;">
+            <span id="quantity-desc-{{dataProduct.id}}" class="visually-hidden">Quantité entre 1 et
+                {{dataProduct.quantity}}</span>
+            }@else {
+            <input type="text" class="form-control text-center" value="Non disponible" readonly
+                aria-label="Produit non disponible">
+            }
+
+            <button class="btn btn-primary" (click)="addToPanier(dataProduct, quantityToAdd)"
+                [disabled]="dataProduct.quantity <= 0" [attr.aria-disabled]="dataProduct.quantity <= 0">Ajouter</button>
+        </div>
+    </div>
+</div>
+}

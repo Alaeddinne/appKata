@@ -1,0 +1,56 @@
+<app-menu></app-menu>
+
+<div class="container py-4">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mb-4 display-6 fw-bold text-center">Votre Panier</h1>
+        </div>
+    </div>
+    @let panierItems = panierService.panierItems$| async;
+    @if (panierItems?.length) {
+    <div class="card shadow-sm mb-4" role="region" aria-label="Panier d'achat">
+        <div class="card-body">
+            <div role="list" aria-label="Articles dans votre panier">
+                @for (panier of panierItems; track $index) {
+                <app-product-list [dataCartItem]="panier" (removeItemEvent)="removeItem($event)"></app-product-list>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-end">
+        <div class="col-md-5 col-lg-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light py-3">
+                    <h2 class="h5 mb-0 fw-bold text-center">Récapitulatif</h2>
+                </div>
+                <div class="card-body">
+                    <div class="panier-totals" aria-live="polite" aria-atomic="true">
+                        <div class="total-row mb-2">
+                            <span id="tax-label" class="tax-label">TOTAL Taxes:</span>
+                            <span aria-labelledby="tax-label" class="tax-value">{{ getTotalTaxes() | currency
+                                :"EUR"}}</span>
+                        </div>
+                        <div class="total-row total-ttc">
+                            <span id="total-label" class="total-label">TOTAL TTC:</span>
+                            <span aria-labelledby="total-label" class="total-value">{{ getTotalTTC() | currency :"EUR"
+                                }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    } @else {
+    <div class="empty-cart-message" role="status" aria-live="polite">
+        <div class="text-center py-5">
+            <i class="fas fa-shopping-cart fa-3x text-muted mb-3"></i>
+            <h2 class="h4">Votre panier est vide</h2>
+            <p class="lead text-muted">Commencez votre shopping en ajoutant des produits à votre panier</p>
+            <a routerLink="/articles" class="btn btn-primary mt-3">
+                <i class="fas fa-arrow-left me-2"></i> Continuer les achats
+            </a>
+        </div>
+    </div>
+    }
+</div>
